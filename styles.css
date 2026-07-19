@@ -1,0 +1,216 @@
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #161615;
+  --surface: #1e1e1d;
+  --surface-raised: #262625;
+  --line: #38372f;
+  --text: #ecebe4;
+  --text-dim: #9a988c;
+  --accent: #c9ff5c;      /* chalk-lime, used sparingly */
+  --good: #7fc27a;
+  --bad: #e08a5f;
+  --radius: 10px;
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: local('Oswald');
+}
+
+h1, h2 { font-family: var(--font-display); letter-spacing: 0.02em; margin: 0; }
+.muted { color: var(--text-dim); font-size: 0.85rem; }
+
+/* ---------- Layout ---------- */
+.screen { min-height: 100vh; }
+main { max-width: 640px; margin: 0 auto; padding: 24px 20px 64px; display: flex; flex-direction: column; gap: 20px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ---------- Brand ---------- */
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark {
+  font-family: var(--font-display);
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.brand h1 { font-size: 1.3rem; text-transform: uppercase; }
+
+/* ---------- Topbar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.topbar-actions { display: flex; gap: 8px; }
+
+/* ---------- Auth ---------- */
+#auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 360px;
+}
+.auth-sub { color: var(--text-dim); margin: 10px 0 24px; font-size: 0.9rem; }
+
+/* ---------- Forms ---------- */
+form { display: flex; flex-direction: column; gap: 4px; }
+label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-top: 12px;
+}
+input {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 11px 12px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  margin-top: 4px;
+}
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+input[type="date"] { color-scheme: dark; }
+
+.field-row { display: flex; gap: 12px; }
+.field { flex: 1; display: flex; flex-direction: column; }
+
+.error-text { color: var(--bad); font-size: 0.85rem; margin: 10px 0 0; }
+
+/* ---------- Buttons ---------- */
+button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 11px 16px;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--ink); margin-top: 18px; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+  margin-top: 10px;
+}
+.btn-secondary:hover { border-color: var(--text-dim); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border-color: var(--line);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+
+/* ---------- Entry card ---------- */
+.entry-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.entry-header h2 { font-size: 1.05rem; text-transform: uppercase; }
+#entry-date { max-width: 170px; margin-top: 0; }
+
+/* ---------- History ---------- */
+.history-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+.history-header h2 { font-size: 1.05rem; text-transform: uppercase; }
+
+.history-list { display: flex; flex-direction: column; gap: 8px; }
+
+.history-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.row-date { font-family: var(--font-display); font-size: 0.95rem; min-width: 76px; }
+.row-date .weekday { display: block; color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; font-family: var(--font-body); }
+.row-stats { display: flex; gap: 18px; font-size: 0.9rem; }
+.row-stats .stat-label { color: var(--text-dim); font-size: 0.72rem; text-transform: uppercase; display: block; }
+.row-indicators { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.met { background: var(--good); }
+.dot.unmet { background: var(--bad); }
+.row-delete {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.row-delete:hover { color: var(--bad); }
+
+/* ---------- Modal ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 9, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10;
+}
+.modal-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 340px;
+}
+.modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+.modal-actions button { flex: 1; margin-top: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 420px) {
+  .history-row { grid-template-columns: auto 1fr auto; }
+  .row-delete { grid-column: 1 / -1; justify-self: end; }
+}

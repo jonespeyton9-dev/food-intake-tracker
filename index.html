@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Log</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- AUTH SCREEN -->
+  <div id="auth-screen" class="screen">
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark">DL</span>
+        <h1>Daily Log</h1>
+      </div>
+      <p class="auth-sub">Calories &amp; protein. Nothing else.</p>
+
+      <form id="auth-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="current-password" minlength="6">
+
+        <p id="auth-error" class="error-text" hidden></p>
+
+        <button type="submit" id="login-btn" class="btn-primary">Log in</button>
+        <button type="button" id="signup-btn" class="btn-secondary">Create account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- APP SCREEN -->
+  <div id="app-screen" class="screen" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">DL</span>
+        <h1>Daily Log</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="goals-btn" class="btn-ghost">Goals</button>
+        <button id="logout-btn" class="btn-ghost">Log out</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- TODAY / ENTRY FORM -->
+      <section class="card entry-card">
+        <div class="entry-header">
+          <h2>Log an entry</h2>
+          <input type="date" id="entry-date" required>
+        </div>
+
+        <form id="entry-form">
+          <div class="field-row">
+            <div class="field">
+              <label for="calories-input">Calories</label>
+              <input type="number" id="calories-input" min="0" step="1" placeholder="0" required>
+            </div>
+            <div class="field">
+              <label for="protein-input">Protein (g)</label>
+              <input type="number" id="protein-input" min="0" step="1" placeholder="0" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">Save entry</button>
+        </form>
+      </section>
+
+      <!-- HISTORY -->
+      <section class="card">
+        <div class="history-header">
+          <h2>History</h2>
+          <span id="entry-count" class="muted"></span>
+        </div>
+        <div id="history-list" class="history-list">
+          <!-- entries injected here, most recent first -->
+        </div>
+        <p id="empty-state" class="muted" hidden>No entries yet. Log your first day above.</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- GOALS MODAL -->
+  <div id="goals-modal" class="modal" hidden>
+    <div class="modal-card">
+      <h2>Daily goals</h2>
+      <form id="goals-form">
+        <div class="field">
+          <label for="calorie-goal-input">Calorie goal</label>
+          <input type="number" id="calorie-goal-input" min="0" step="1" required>
+        </div>
+        <div class="field">
+          <label for="protein-goal-input">Protein goal (g)</label>
+          <input type="number" id="protein-goal-input" min="0" step="1" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="goals-cancel-btn" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save goals</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
