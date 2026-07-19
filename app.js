@@ -48,7 +48,7 @@ let currentUser = null;
 let unsubscribeEntries = null;
 let goals = { calorieGoal: null, proteinGoal: null };
 let latestEntries = [];
-let expandedDates = new Set();
+let expandedDate = null; // the one day currently expanded, or null
 let editingItem = null; // { date, id } | null
 
 // ---------- Helpers ----------
@@ -147,7 +147,7 @@ onAuthStateChanged(auth, (user) => {
     authScreen.hidden = true;
     appScreen.hidden = false;
     authForm.reset();
-    expandedDates = new Set();
+    expandedDate = null;
     editingItem = null;
     subscribeToEntries();
     window.scrollTo(0, 0); // land at the top of the app, not wherever the login screen left off
@@ -187,7 +187,7 @@ entryForm.addEventListener("submit", async (e) => {
   caloriesInput.value = "";
   proteinInput.value = "";
   entryDateInput.value = todayISO();
-  expandedDates.add(dateStr); // show the day you just added to
+  expandedDate = dateStr; // show the day you just added to
   sourceInput.focus();
 });
 
@@ -250,7 +250,7 @@ function buildDayEntry(entry) {
   const wrapper = document.createElement("div");
   wrapper.className = "history-entry";
 
-  const isExpanded = expandedDates.has(entry.date);
+  const isExpanded = expandedDate === entry.date;
 
   const row = document.createElement("div");
   row.className = "history-row";
@@ -276,8 +276,7 @@ function buildDayEntry(entry) {
   `;
 
   row.querySelector(".row-toggle").addEventListener("click", () => {
-    if (expandedDates.has(entry.date)) expandedDates.delete(entry.date);
-    else expandedDates.add(entry.date);
+    expandedDate = expandedDate === entry.date ? null : entry.date;
     renderHistory(latestEntries);
   });
 
