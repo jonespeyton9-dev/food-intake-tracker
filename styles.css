@@ -82,11 +82,15 @@ main { max-width: 640px; margin: 0 auto; padding: 24px 20px 64px; display: flex;
 
 /* ---------- Auth ---------- */
 #auth-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  inset: 0;
   padding: 20px;
+  background: var(--ink);
+  z-index: 20;
+  overflow-y: auto;
 }
+#auth-screen:not([hidden]) { display: flex; align-items: center; justify-content: center; }
+#auth-screen[hidden] { display: none; }
 .auth-card {
   background: var(--surface);
   border: 1px solid var(--line);
