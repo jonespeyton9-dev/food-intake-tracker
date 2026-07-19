@@ -210,6 +210,10 @@ goalsCancelBtn.addEventListener("click", () => (goalsModal.hidden = true));
 
 goalsForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (!currentUser) {
+    goalsModal.hidden = true;
+    return;
+  }
   goals = {
     calorieGoal: Number(calorieGoalInput.value),
     proteinGoal: Number(proteinGoalInput.value)
