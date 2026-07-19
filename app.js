@@ -265,8 +265,8 @@ function buildDayEntry(entry) {
       ${formatDateLabel(entry.date)}
     </div>
     <div class="row-stats">
-      <div><span class="stat-label">Cal</span>${entry.calories}</div>
-      <div><span class="stat-label">Protein</span>${entry.protein}g</div>
+      <div><span class="stat-label">Cal</span>${entry.calories}${goals.calorieGoal != null ? `/${goals.calorieGoal}` : ""}</div>
+      <div><span class="stat-label">Protein</span>${entry.protein}g${goals.proteinGoal != null ? `/${goals.proteinGoal}g` : ""}</div>
     </div>
     <div class="row-indicators">
       ${goals.calorieGoal != null ? `<span class="dot ${calMet ? "met" : "unmet"}" title="Calorie goal ${calMet ? "met" : "not met"}"></span>` : ""}
