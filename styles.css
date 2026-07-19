@@ -64,12 +64,19 @@ main { max-width: 640px; margin: 0 auto; padding: 24px 20px 64px; display: flex;
 
 /* ---------- Topbar ---------- */
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 640px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 16px 20px;
 }
 .topbar-actions { display: flex; gap: 8px; }
 
@@ -116,7 +123,8 @@ input:focus {
 input[type="date"] { color-scheme: dark; }
 
 .field-row { display: flex; gap: 12px; }
-.field { flex: 1; display: flex; flex-direction: column; }
+.field { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.field-source { flex: 1.6; }
 
 .error-text { color: var(--bad); font-size: 0.85rem; margin: 10px 0 0; }
 
@@ -159,9 +167,11 @@ button {
 
 .history-list { display: flex; flex-direction: column; gap: 8px; }
 
+.history-entry { display: flex; flex-direction: column; gap: 0; }
+
 .history-row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
   gap: 14px;
   background: var(--surface-raised);
@@ -169,6 +179,17 @@ button {
   border-radius: 8px;
   padding: 12px 14px;
 }
+.row-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  line-height: 1;
+}
+.row-toggle.expanded { transform: rotate(90deg); }
 .row-date { font-family: var(--font-display); font-size: 0.95rem; min-width: 76px; }
 .row-date .weekday { display: block; color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; font-family: var(--font-body); }
 .row-stats { display: flex; gap: 18px; font-size: 0.9rem; }
@@ -186,6 +207,70 @@ button {
   cursor: pointer;
 }
 .row-delete:hover { color: var(--bad); }
+
+/* ---------- Itemized breakdown ---------- */
+.row-items {
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0 0 34px;
+}
+.row-items:not([hidden]) { display: flex; }
+.row-items[hidden] { display: none; }
+
+.item-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+.item-source { color: var(--text); overflow-wrap: anywhere; }
+.item-stats { color: var(--text-dim); white-space: nowrap; font-size: 0.8rem; }
+.item-actions { display: flex; gap: 2px; }
+.item-actions button {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+.item-actions button:hover { color: var(--text); }
+.item-actions .item-delete:hover { color: var(--bad); }
+
+.item-edit-row {
+  display: grid;
+  grid-template-columns: 1fr 64px 64px auto;
+  gap: 8px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+.item-edit-row input {
+  margin-top: 0;
+  padding: 6px 8px;
+  font-size: 0.82rem;
+}
+.item-edit-actions { display: flex; gap: 2px; }
+.item-edit-actions button {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  padding: 5px 6px;
+  cursor: pointer;
+}
+.item-edit-actions .item-save:hover { color: var(--good); }
+.item-edit-actions .item-cancel:hover { color: var(--bad); }
 
 /* ---------- Modal ---------- */
 .modal {
@@ -212,6 +297,10 @@ button {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 420px) {
-  .history-row { grid-template-columns: auto 1fr auto; }
+  .history-row { grid-template-columns: auto auto 1fr auto; }
   .row-delete { grid-column: 1 / -1; justify-self: end; }
+  .item-row { grid-template-columns: 1fr auto; }
+  .item-stats { grid-column: 1 / -1; }
+  .item-edit-row { grid-template-columns: 1fr 1fr; }
+  .item-edit-actions { grid-column: 1 / -1; justify-self: end; }
 }
